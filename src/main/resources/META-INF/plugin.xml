@@ -1,0 +1,21 @@
+<idea-plugin>
+    <id>com.chriscarini.jetbrains.automatic-github-issue-navigation-configuration-jetbrains-plugin</id>
+    <name>Automatic GitHub Issue Navigation Configuration</name>
+    <vendor url="https://jetbrains.chriscarini.com">Chris Carini</vendor>
+
+    <description><![CDATA[
+    A plugin that automatically configures the IDE's Issue Navigation for GitHub projects.
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>Git4Idea</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+
+        <postStartupActivity
+                implementation="com.chriscarini.jetbrains.github.issue.navigation.GitHubIssueNavigationStartupActivity"/>
+
+    </extensions>
+</idea-plugin>
