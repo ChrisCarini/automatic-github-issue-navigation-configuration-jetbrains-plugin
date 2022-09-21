@@ -1,6 +1,7 @@
-import java.util.stream.Collectors
 import org.jetbrains.changelog.ExtensionsKt
 import org.jetbrains.intellij.tasks.RunPluginVerifierTask.FailureLevel
+
+import java.util.stream.Collectors
 
 String properties(String key) { return project.findProperty(key).toString() }
 
@@ -74,9 +75,52 @@ tasks {
     changeNotes.set((changeLogForVersion != null ? changeLogForVersion : changelog.getLatest()).toHTML())
   }
 
+  listProductsReleases {
+    // In addition to `IC` (from `platformType`), we also want to verify against `IU`.
+    types.set(Arrays.asList(properties('platformType'), 'IU'))
+
+    // Verify against the most recent patch release of the `platformVersion` version
+    // (ie, if `platformVersion` = 2022.2, and the latest patch release is `2022.2.2`,
+    // then the `sinceVersion` will be set to `2022.2.2` and *NOT* `2022.2`.
+    sinceVersion.set(properties('platformVersion'))
+    untilVersion.set(properties('platformVersion'))
+  }
+
+  // Task to generate the necessary format for `ChrisCarini/intellij-platform-plugin-verifier-action` GitHub Action.
+  task generateIdeVersionsList {
+    dependsOn('listProductsReleases')
+    doLast {
+      def outFileWriter = new File(buildDir, 'intellij-platform-plugin-verifier-action-ide-versions-file.txt').newPrintWriter()
+
+      def versions = []
+
+      // Include the versions produced from the `listProductsReleases` task.
+      listProductsReleases.getOutputFile().get().asFile.eachLine { line ->
+        versions.add("idea" + line.replaceAll("-", ":"))
+      }
+
+      // Include the versions specified in `gradle.properties` `pluginVerifierIdeVersions` property.
+      properties("pluginVerifierIdeVersions").split(',')*.trim().each { version ->
+        ['IC', 'IU'].each { type ->
+          versions.add("idea" + type + ":" + version)
+        }
+      }
+      versions.unique().each { line ->
+        outFileWriter.println(line)
+      }
+      outFileWriter.close()
+    }
+  }
+
   runPluginVerifier {
-    ideVersions = Arrays.asList(properties("pluginVerifierIdeVersions").split(','))
-    failureLevel = [FailureLevel.NOT_DYNAMIC]
+    // Leave `ideVersions` commented out so that the `listProductsReleases` task will execute.
+    // If no `ideVersions` is specified, the output from the `listProductsReleases` will be used.
+    //
+    // NOTE: I use the `listProductsReleases` task and `generateIdeVersionsList` task for the
+    // `ChrisCarini/intellij-platform-plugin-verifier-action` GitHub Action to verify on CI.
+    // ideVersions = Arrays.asList(properties("pluginVerifierIdeVersions").split(','))
+
+    failureLevel.set([FailureLevel.NOT_DYNAMIC])
   }
 
   // Set the respective compiler arguments to fail the build if there are warnings.
@@ -117,6 +161,10 @@ tasks {
   }
 
   publishPlugin {
+    // TODO(ChrisCarini - 2021-10-12) - The `patchChangelog` dependency is not needed,
+    //  because it is taken care of in the `release.yml` file. Follow up with the IJ
+    //  plugin template to see if this is removed / modified in a month or so.
+//    dependsOn("patchChangelog")
     dependsOn('checkJetBrainsSecrets')
     token.set(publishPluginToken)
 
@@ -152,7 +200,7 @@ dependencies {
   provided localGroovy()
   provided gradleApi()
   testImplementation 'org.testng:testng:7.6.1'
-  testImplementation "org.mockito:mockito-core:4.8.0"
+  testImplementation 'org.mockito:mockito-core:4.8.0'
 }
 
 // Configure IntelliJ to be aware of Groovy and Gradle APIs to allow resolution and code completion of symbols in build.gradle
