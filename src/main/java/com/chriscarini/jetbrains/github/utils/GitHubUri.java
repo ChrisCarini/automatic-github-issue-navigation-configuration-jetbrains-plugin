@@ -13,7 +13,26 @@ public class GitHubUri {
         this.repo = repo;
     }
 
-    public static GitHubUri parseSsh(@NotNull final String url) {
+    public static GitHubUri parseUrl(@NotNull final String url) {
+        if (url.startsWith("https://")) {
+            return parseHttps(url);
+        }
+        return parseSsh(url);
+    }
+
+    private static GitHubUri parseHttps(@NotNull final String url) {
+        int beginDomain = url.indexOf("://");
+        int beginOrg = url.indexOf("/", beginDomain + 3);
+        int beginRepo = url.indexOf("/", beginOrg + 1);
+        int dotGitLoc = url.contains(".git") ? url.lastIndexOf(".git") : url.length();
+
+        final String host = url.substring(beginDomain + 3, beginOrg);
+        final String owner = url.substring(beginOrg + 1, beginRepo);
+        final String repo = url.substring(beginRepo + 1, dotGitLoc);
+        return new GitHubUri(host, owner, repo);
+    }
+
+    private static GitHubUri parseSsh(@NotNull final String url) {
         int beginDomain = url.indexOf("@");
         int beginOrg = url.indexOf(":", beginDomain + 1);
         if (beginOrg == -1) {

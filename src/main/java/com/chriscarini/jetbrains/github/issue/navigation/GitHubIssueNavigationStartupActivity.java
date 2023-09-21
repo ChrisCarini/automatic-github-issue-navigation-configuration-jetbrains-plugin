@@ -51,7 +51,7 @@ public class GitHubIssueNavigationStartupActivity implements StartupActivity {
                         return;
                     }
 
-                    final String cleanedUrl = GitHubUri.parseSsh(url).asHttpsFormatUrl();
+                    final String cleanedUrl = GitHubUri.parseUrl(url).asHttpsFormatUrl();
 
                     if (existsInIssueNavConfig(project, cleanedUrl)) {
                         LOG.debug(String.format("%s is already registered.", cleanedUrl));
