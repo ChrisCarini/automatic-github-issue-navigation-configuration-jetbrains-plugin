@@ -33,7 +33,7 @@ jobs:
 
       # Check out current repository
       - name: Fetch Sources
-        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
 
       # Validate wrapper
       - name: Gradle Wrapper Validation
@@ -44,13 +44,13 @@ jobs:
     name: Test
     needs: [ gradleValidation, files-changed ]
     # If there are no changes in the changelog or there are changes in more than just the changelog, we want to run this job.
-    if: needs.files-changed.outputs.changelog == 'false' || ( needs.files-changed.outputs.changelog == 'true' && needs.files-changed.outputs.changed_count > 1 )
+    if: needs.files-changed.outputs.SKIP_CI == 'false'
     runs-on: ubuntu-latest
     steps:
 
       # Check out current repository
       - name: Fetch Sources
-        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
 
       # Setup Java 17 environment for the next steps
       - name: Setup Java 17
@@ -102,7 +102,7 @@ jobs:
     name: Build
     needs: [ test, files-changed ]
     # If there are no changes in the changelog or there are changes in more than just the changelog, we want to run this job.
-    if: needs.files-changed.outputs.changelog == 'false' || ( needs.files-changed.outputs.changelog == 'true' && needs.files-changed.outputs.changed_count > 1 )
+    if: needs.files-changed.outputs.SKIP_CI == 'false'
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.properties.outputs.version }}
@@ -111,7 +111,7 @@ jobs:
 
       # Check out current repository
       - name: Fetch Sources
-        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
 
       # Setup Java 17 environment for the next steps
       - name: Setup Java 17
@@ -154,14 +154,14 @@ jobs:
   releaseDraft:
     name: Release Draft
     # If the event is *not* a PR, and there are no changes in the changelog or there are changes in more than just the changelog, we want to run this job.
-    if: github.event_name != 'pull_request' && (needs.files-changed.outputs.changelog == 'false' || ( needs.files-changed.outputs.changelog == 'true' && needs.files-changed.outputs.changed_count > 1 ))
+    if: github.event_name != 'pull_request' && needs.files-changed.outputs.SKIP_CI == 'false'
     needs: [ build, files-changed ]
     runs-on: ubuntu-latest
     steps:
 
       # Check out current repository
       - name: Fetch Sources
-        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
 
       # Remove old release drafts by using the curl request for the available releases with draft flag
       - name: Remove Old Release Drafts
