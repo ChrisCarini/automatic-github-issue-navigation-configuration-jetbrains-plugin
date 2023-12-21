@@ -14,9 +14,13 @@
 ### Removed
 
 ### Fixed
-- [#208](https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/issues/208) - Fixing issue where the plugin would throw `StringIndexOutOfBoundsException` in certain conditions
 
 ### Security
+
+## [1.2.2] - 2023-12-21
+
+### Fixed
+- [#208](https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/issues/208) - Fixing issue where the plugin would throw `StringIndexOutOfBoundsException` in certain conditions
 
 ## [1.2.1] - 2023-12-14
 
@@ -123,7 +127,8 @@
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v1.2.1...HEAD
+[Unreleased]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v1.2.2...HEAD
+[1.2.2]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v1.1.5...v1.2.0
 [1.1.5]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v1.1.4...v1.1.5
