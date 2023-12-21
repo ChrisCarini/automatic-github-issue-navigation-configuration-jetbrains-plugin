@@ -14,6 +14,7 @@
 ### Removed
 
 ### Fixed
+- [#208](https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/issues/208) - Fixing issue where the plugin would throw `StringIndexOutOfBoundsException` in certain conditions
 
 ### Security
 

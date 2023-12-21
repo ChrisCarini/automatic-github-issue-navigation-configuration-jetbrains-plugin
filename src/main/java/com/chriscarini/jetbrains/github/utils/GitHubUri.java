@@ -20,11 +20,11 @@ public class GitHubUri {
         return parseSsh(url);
     }
 
-    private static GitHubUri parseHttps(@NotNull final String url) {
+    protected static GitHubUri parseHttps(@NotNull final String url) {
         int beginDomain = url.indexOf("://");
         int beginOrg = url.indexOf("/", beginDomain + 3);
         int beginRepo = url.indexOf("/", beginOrg + 1);
-        int dotGitLoc = url.contains(".git") ? url.lastIndexOf(".git") : url.length();
+        int dotGitLoc = url.endsWith(".git") ? url.lastIndexOf(".git") : url.length();
 
         final String host = url.substring(beginDomain + 3, beginOrg);
         final String owner = url.substring(beginOrg + 1, beginRepo);
@@ -32,14 +32,14 @@ public class GitHubUri {
         return new GitHubUri(host, owner, repo);
     }
 
-    private static GitHubUri parseSsh(@NotNull final String url) {
+    protected static GitHubUri parseSsh(@NotNull final String url) {
         int beginDomain = url.indexOf("@");
         int beginOrg = url.indexOf(":", beginDomain + 1);
         if (beginOrg == -1) {
             beginOrg = url.indexOf("/", beginDomain + 1);
         }
         int beginRepo = url.indexOf("/", beginOrg + 1);
-        int dotGitLoc = url.lastIndexOf(".git");
+        int dotGitLoc = url.endsWith(".git") ? url.lastIndexOf(".git") : url.length();
 
         final String host = url.substring(beginDomain + 1, beginOrg);
         final String owner = url.substring(beginOrg + 1, beginRepo);

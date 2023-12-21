@@ -3,6 +3,7 @@ package com.chriscarini.jetbrains.github.utils;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class GitHubUriTest {
 
@@ -73,6 +74,62 @@ public class GitHubUriTest {
         assertEquals(uri6.getHost(), "github.com");
         assertEquals(uri6.getOwner(), "ChrisCarini");
         assertEquals(uri6.getRepo(), "automatic-github-issue-navigation-configuration-jetbrains-plugin");
+
+        // given - with org (non-`git` username)
+        final String url7 = "ssh://org-123@github.com/org/repo.git";
+
+        // when
+        final GitHubUri uri7 = GitHubUri.parseUrl(url7);
+
+        // then
+        assertEquals(uri7.getHost(), "github.com");
+        assertEquals(uri7.getOwner(), "org");
+        assertEquals(uri7.getRepo(), "repo");
+    }
+
+    @Test
+    public void testParseHttps() {
+        // given
+        for (String uri : new String[]{
+                "https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin.git",
+                "https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin",
+                "https://company.githubprivate.com/company/repo",
+                "https://company.ghe.com/company/repo",
+                "https://github.com/company/repo",
+        }) {
+            // when
+            final GitHubUri result = GitHubUri.parseHttps(uri);
+
+            // then
+            assertNotNull(result);
+            assertNotNull(result.getHost());
+            assertNotNull(result.getOwner());
+            assertNotNull(result.getRepo());
+        }
+    }
+
+    @Test
+    public void testParseSsh() {
+        // given
+        for (String uri : new String[]{
+                "git@github.com:ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin.git",
+                "git@github.com:ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin",
+                "git@company.githubprivate.com:company/repo.git",
+                "git@company.githubprivate.com:company/repo",
+                "git@company.ghe.com:company/repo.git",
+                "git@company.ghe.com:company/repo",
+                "ssh://org-123@github.com/company/repo.git",
+                "ssh://org-123@github.com/company/repo",
+        }) {
+            // when
+            final GitHubUri result = GitHubUri.parseSsh(uri);
+
+            // then
+            assertNotNull(result);
+            assertNotNull(result.getHost());
+            assertNotNull(result.getOwner());
+            assertNotNull(result.getRepo());
+        }
     }
 
     @Test
