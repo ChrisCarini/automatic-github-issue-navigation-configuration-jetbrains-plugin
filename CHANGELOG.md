@@ -7,7 +7,6 @@
 ### Added
 
 ### Changed
-- Upgrading IntelliJ from 2023.3.4 to 2023.3.5
 
 ### Deprecated
 
@@ -16,6 +15,11 @@
 ### Fixed
 
 ### Security
+
+## [1.2.6] - 2024-03-13
+
+### Changed
+- Upgrading IntelliJ from 2023.3.4 to 2023.3.5
 
 ## [1.2.5] - 2024-02-14
 
@@ -142,7 +146,8 @@
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v1.2.5...HEAD
+[Unreleased]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v1.2.6...HEAD
+[1.2.6]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v1.2.5...v1.2.6
 [1.2.5]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v1.2.4...v1.2.5
 [1.2.4]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v1.2.3...v1.2.4
 [1.2.3]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v1.2.2...v1.2.3
