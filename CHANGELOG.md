@@ -16,6 +16,12 @@
 
 ### Security
 
+## [2.1.3] - 2024-09-26
+
+### Changed
+
+- Upgrading IntelliJ from 2024.2.2 to 2024.2.3
+
 ## [2.1.2] - 2024-09-22
 
 ### Changed
@@ -233,7 +239,8 @@
 
 - Initial release.
 
-[Unreleased]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v2.1.2...HEAD
+[Unreleased]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v2.1.3...HEAD
+[2.1.3]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v2.1.2...v2.1.3
 [2.1.2]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v2.0.5...v2.1.0
