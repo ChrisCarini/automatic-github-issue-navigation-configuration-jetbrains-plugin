@@ -7,6 +7,8 @@
 ### Added
 
 ### Changed
+- Upgrading IntelliJ from 2025.1 to 2025.1.1
+- Migrate from `StartupActivity` (obsolete) -> `VcsRepositoryMappingListener`
 
 ### Deprecated
 

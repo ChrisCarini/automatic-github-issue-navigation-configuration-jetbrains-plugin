@@ -19,8 +19,8 @@ public class GitHubUtils {
     public static boolean isKnownGitHubDomain(@NotNull final String url) {
         final List<String> result = knownGitHubDomains()
             .filter(url::contains)
-            .collect(Collectors.toList());
+            .toList();
 
-        return result.size() > 0;
+        return !result.isEmpty();
     }
 }

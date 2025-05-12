@@ -12,10 +12,11 @@
     <depends>com.intellij.modules.platform</depends>
     <depends>Git4Idea</depends>
 
-    <extensions defaultExtensionNs="com.intellij">
-
-        <postStartupActivity
-                implementation="com.chriscarini.jetbrains.github.issue.navigation.GitHubIssueNavigationStartupActivity"/>
-
-    </extensions>
+    <projectListeners>
+        <listener
+                class="com.chriscarini.jetbrains.github.issue.navigation.GitHubIssueNavigationVcsRepositoryMappingListener"
+                topic="com.intellij.dvcs.repo.VcsRepositoryMappingListener"
+                activeInHeadlessMode="false"
+                activeInTestMode="false"/>
+    </projectListeners>
 </idea-plugin>
