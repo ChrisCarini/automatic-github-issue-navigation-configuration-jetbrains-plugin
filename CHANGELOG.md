@@ -5,6 +5,7 @@
 ## [Unreleased]
 
 ### Added
+- Add more patterns for matching issues (`#123`, `GH-123`, and `ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin#123`)
 
 ### Changed
 

@@ -11,30 +11,25 @@ import java.util.stream.Collectors;
 
 
 public class TestGitHubIssueNavigationVcsRepositoryMappingListenerTest extends LightPlatformTestCase {
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-    }
 
-    @Test
     public void testExistsInIssueNavConfig() {
         // given
         final String expectedUrl = "MY_FAKE_URL";
         final String unexpectedUrl = "MY_UNEXPECTED_FAKE_URL";
-        final IssueNavigationLink myIssueNavigationLink = new IssueNavigationLink("FAKE_REGEX", expectedUrl);
+        final List<IssueNavigationLink> myIssueNavigationLinks = GitHubIssueNavigationVcsRepositoryMappingListener.getIssueNavigationLinks(expectedUrl);
 
-        IssueNavigationConfiguration.getInstance(getProject()).setLinks(List.of(myIssueNavigationLink));
+        IssueNavigationConfiguration.getInstance(getProject()).setLinks(myIssueNavigationLinks);
 
         // expect
         assert GitHubIssueNavigationVcsRepositoryMappingListener.existsInIssueNavConfig(getProject(), expectedUrl);
         assert !GitHubIssueNavigationVcsRepositoryMappingListener.existsInIssueNavConfig(getProject(), unexpectedUrl);
     }
 
-    @Test
     public void testAddNewIssueNavigationConfiguration() {
         // given
         final String expectedUrl = "MY_FAKE_URL";
-        assert IssueNavigationConfiguration.getInstance(getProject()).getLinks().isEmpty();
+        final List<IssueNavigationLink> links = IssueNavigationConfiguration.getInstance(getProject()).getLinks();
+        assertEmpty(links.stream().map(IssueNavigationLink::toString).collect(Collectors.joining(",")), links);
 
         // when
         GitHubIssueNavigationVcsRepositoryMappingListener.addNewIssueNavigationConfiguration(getProject(), expectedUrl);
@@ -45,6 +40,6 @@ public class TestGitHubIssueNavigationVcsRepositoryMappingListenerTest extends L
             .stream()
             .filter(issueNavigationLink -> issueNavigationLink.getLinkRegexp().contains(expectedUrl))
             .toList();
-        assertEquals(1, issues.size());
+        assertEquals(3, issues.size());
     }
 }
