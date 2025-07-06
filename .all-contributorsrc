@@ -32,6 +32,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "work",
+      "name": "work",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1107633?v=4",
+      "profile": "https://github.com/work",
+      "contributions": [
+        "plugin"
+      ]
     }
   ]
 }
