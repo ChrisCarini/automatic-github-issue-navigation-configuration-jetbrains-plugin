@@ -5,6 +5,7 @@
 ## [Unreleased]
 
 ### Added
+- Add more patterns for matching issues (`#123`, `GH-123`, and `ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin#123`)
 
 ### Changed
 - Upgrading IntelliJ from 2025.1.2 to 2025.1.3

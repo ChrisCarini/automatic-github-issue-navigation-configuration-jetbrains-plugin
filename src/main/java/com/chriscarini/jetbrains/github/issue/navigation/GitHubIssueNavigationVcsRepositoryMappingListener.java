@@ -2,6 +2,8 @@ package com.chriscarini.jetbrains.github.issue.navigation;
 
 import com.chriscarini.jetbrains.github.utils.GitHubUri;
 import com.chriscarini.jetbrains.github.utils.GitHubUtils;
+import com.google.common.collect.Lists;
+import com.intellij.dvcs.repo.Repository;
 import com.intellij.dvcs.repo.VcsRepositoryManager;
 import com.intellij.dvcs.repo.VcsRepositoryMappingListener;
 import com.intellij.openapi.application.ApplicationManager;
@@ -36,7 +38,12 @@ public class GitHubIssueNavigationVcsRepositoryMappingListener implements VcsRep
             return;
         }
 
-        VcsRepositoryManager.getInstance(project).getRepositories().forEach(repository -> {
+        configureIssueNavigationConfigurations();
+    }
+
+    protected void configureIssueNavigationConfigurations() {
+        final Collection<Repository> repositories = VcsRepositoryManager.getInstance(project).getRepositories();
+        repositories.forEach(repository -> {
             final Collection<GitRemote> repoRemotes = ((GitRepositoryImpl) repository).getRemotes();
             repoRemotes.forEach(
                     gitRemote -> {
@@ -71,23 +78,47 @@ public class GitHubIssueNavigationVcsRepositoryMappingListener implements VcsRep
     }
 
     protected static boolean existsInIssueNavConfig(@NotNull final Project project, @NotNull final String url) {
+        final List<String> newLinks = getIssueNavigationLinks(url)
+                .stream()
+                .map(IssueNavigationLink::getLinkRegexp)
+                .toList();
         final List<IssueNavigationLink> matching = IssueNavigationConfiguration.getInstance(project).getLinks()
                 .stream()
-                .filter(issueNavigationLink -> issueNavigationLink.getLinkRegexp().contains(url))
+                .filter(issueNavigationLink -> newLinks.contains(issueNavigationLink.getLinkRegexp()))
                 .toList();
 
-        return !matching.isEmpty();
+        return matching.size() == newLinks.size();
     }
 
     protected static void addNewIssueNavigationConfiguration(@NotNull final Project project, @NotNull final String url) {
         final IssueNavigationConfiguration issueNavigationConfiguration = IssueNavigationConfiguration.getInstance(project);
 
-        final IssueNavigationLink newLink = new IssueNavigationLink("\\(#(\\d+)\\)", String.format("%s/issues/$1", url));
+        final List<IssueNavigationLink> currentRegisteredLinks = issueNavigationConfiguration.getLinks();
+        final List<IssueNavigationLink> newLinks = getIssueNavigationLinks(url);
+
+        final List<IssueNavigationLink> currentRegisteredLinksMinusNew = Lists.newArrayList(currentRegisteredLinks);
+        currentRegisteredLinksMinusNew.removeAll(newLinks);
 
         issueNavigationConfiguration.setLinks(
                 Stream.concat(
-                        issueNavigationConfiguration.getLinks().stream(),
-                        Stream.of(newLink)
-                ).collect(Collectors.toList()));
+                        currentRegisteredLinksMinusNew.stream(),
+                        newLinks.stream()
+                ).toList());
+    }
+
+    protected static @NotNull List<IssueNavigationLink> getIssueNavigationLinks(@NotNull final String url) {
+        // `(#123)`                            ( 'parenthesis' pound-number )
+        final IssueNavigationLink parenPoundNum = new IssueNavigationLink("\\(#(\\d+)\\)", String.format("%s/issues/$1", url));
+
+        // `#123`                             ( 'raw' pound-number )
+        final IssueNavigationLink rawPoundNum = new IssueNavigationLink("#(\\d+)", String.format("%s/issues/$1", url));
+
+        // `GH-123`                            ( 'GH'-prefix'd number )
+        final IssueNavigationLink ghPrefix = new IssueNavigationLink("GH-(\\d+)", String.format("%s/issues/$1", url));
+
+        // `JetBrains/intellij-community#123`  ( org/user repo pound-number )
+        final IssueNavigationLink orgUserRepoNo = new IssueNavigationLink("([^/\\n ]+/[^#\\n]+)#(\\d+)", "https://github.com/$1/issues/$2");
+
+        return List.of(parenPoundNum, rawPoundNum, ghPrefix, orgUserRepoNo);
     }
 }
