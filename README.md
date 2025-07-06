@@ -29,6 +29,7 @@ The [officially released versions of this plugin can be found at plugins.jetbrai
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ChrisCarini"><img src="https://avatars.githubusercontent.com/u/6374067?v=4?s=100" width="100px;" alt="Chris Carini"/><br /><sub><b>Chris Carini</b></sub></a><br /><a href="#bug-ChrisCarini" title="Bug reports">🐛</a> <a href="#code-ChrisCarini" title="Code">💻</a> <a href="#doc-ChrisCarini" title="Documentation">📖</a> <a href="#example-ChrisCarini" title="Examples">💡</a> <a href="#ideas-ChrisCarini" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-ChrisCarini" title="Maintenance">🚧</a> <a href="#question-ChrisCarini" title="Answering Questions">💬</a> <a href="#review-ChrisCarini" title="Reviewed Pull Requests">👀</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://www.loganrosen.com/"><img src="https://avatars.githubusercontent.com/u/512317?v=4?s=100" width="100px;" alt="Logan Rosen"/><br /><sub><b>Logan Rosen</b></sub></a><br /><a href="#bug-loganrosen" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/work"><img src="https://avatars.githubusercontent.com/u/1107633?v=4?s=100" width="100px;" alt="work"/><br /><sub><b>work</b></sub></a><br /><a href="#plugin-work" title="Plugin/utility libraries">🔌</a></td>
     </tr>
   </tbody>
 </table>
