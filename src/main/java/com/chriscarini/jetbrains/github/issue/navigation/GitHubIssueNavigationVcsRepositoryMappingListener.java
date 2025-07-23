@@ -117,7 +117,7 @@ public class GitHubIssueNavigationVcsRepositoryMappingListener implements VcsRep
         final IssueNavigationLink ghPrefix = new IssueNavigationLink("GH-(\\d+)", String.format("%s/issues/$1", url));
 
         // `JetBrains/intellij-community#123`  ( org/user repo pound-number )
-        final IssueNavigationLink orgUserRepoNo = new IssueNavigationLink("([^/\\n ]+/[^#\\n]+)#(\\d+)", "https://github.com/$1/issues/$2");
+        final IssueNavigationLink orgUserRepoNo = new IssueNavigationLink("([^/\\n\\s\\t]+/[^#\\n\\s\\t]+)#(\\d+)", "https://github.com/$1/issues/$2");
 
         return List.of(parenPoundNum, rawPoundNum, ghPrefix, orgUserRepoNo);
     }
