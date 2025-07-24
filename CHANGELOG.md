@@ -13,6 +13,7 @@
 ### Removed
 
 ### Fixed
+- [#468](https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/issues/468) - Fixes issue where the regex for "org/repo#num" would highlight too much.
 
 ### Security
 

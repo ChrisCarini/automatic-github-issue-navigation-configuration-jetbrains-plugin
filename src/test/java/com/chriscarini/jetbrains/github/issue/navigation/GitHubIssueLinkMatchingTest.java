@@ -106,6 +106,9 @@ public class GitHubIssueLinkMatchingTest extends LightPlatformTestCase {
         assertEquals(List.of(), getIssueMatches("will be fixed in #-123"));
         assertEquals(List.of(), getIssueMatches("will be fixed in GITHUB-123"));
         assertEquals(List.of(), getIssueMatches("will be fixed in ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin#-123"));
+
+        // regression tests (aka, bugs identified + fixed)
+        assertEquals(List.of("https://github.com/ChrisCarini/github-repo-files-sync/pull/269", "(#123)"), getIssueMatches("Bump github/codeql-action from 3.29.1 to 3.29.2 in /github/workflows (https://github.com/ChrisCarini/github-repo-files-sync/pull/269) (#123)"));
     }
 
     private List<String> getIssueMatches(@NotNull final String source) {
