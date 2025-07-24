@@ -13,9 +13,14 @@
 ### Removed
 
 ### Fixed
-- [#468](https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/issues/468) - Fixes issue where the regex for "org/repo#num" would highlight too much.
 
 ### Security
+
+## [3.0.3] - 2025-07-24
+
+### Fixed
+
+- [#468](https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/issues/468) - Fixes issue where the regex for "org/repo#num" would highlight too much.
 
 ## [3.0.2] - 2025-07-06
 
@@ -324,7 +329,8 @@
 
 - Initial release.
 
-[Unreleased]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v3.0.2...HEAD
+[Unreleased]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v3.0.3...HEAD
+[3.0.3]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v3.0.2...v3.0.3
 [3.0.2]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v3.0.1...v3.0.2
 [3.0.1]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v2.2.8...v3.0.0
