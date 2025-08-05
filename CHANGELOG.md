@@ -8,6 +8,8 @@
 
 ### Changed
 
+- Upgrading IntelliJ from 2025.1.4.1 to 2025.2
+
 ### Deprecated
 
 ### Removed
