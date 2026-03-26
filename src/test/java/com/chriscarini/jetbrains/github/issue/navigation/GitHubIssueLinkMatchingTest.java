@@ -7,7 +7,7 @@ import com.intellij.openapi.vcs.ProjectLevelVcsManager;
 import com.intellij.openapi.vcs.VcsDirectoryMapping;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.testFramework.LightPlatformTestCase;
+import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
 import java.io.File;
 import java.util.Collections;
@@ -21,7 +21,7 @@ import git4idea.commands.GitLineHandler;
 import org.jetbrains.annotations.NotNull;
 
 
-public class GitHubIssueLinkMatchingTest extends LightPlatformTestCase {
+public class GitHubIssueLinkMatchingTest extends BasePlatformTestCase {
 
     @Override
     protected void setUp() throws Exception {
