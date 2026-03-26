@@ -12,7 +12,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vcs.IssueNavigationConfiguration;
 import com.intellij.openapi.vcs.IssueNavigationLink;
 import git4idea.repo.GitRemote;
-import git4idea.repo.GitRepositoryImpl;
+import git4idea.repo.GitRepository;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,7 +44,10 @@ public class GitHubIssueNavigationVcsRepositoryMappingListener implements VcsRep
     protected void configureIssueNavigationConfigurations() {
         final Collection<Repository> repositories = VcsRepositoryManager.getInstance(project).getRepositories();
         repositories.forEach(repository -> {
-            final Collection<GitRemote> repoRemotes = ((GitRepositoryImpl) repository).getRemotes();
+            if (!(repository instanceof GitRepository gitRepository)) {
+                return;
+            }
+            final Collection<GitRemote> repoRemotes = gitRepository.getRemotes();
             repoRemotes.forEach(
                     gitRemote -> {
                         final String url = gitRemote.getFirstUrl();

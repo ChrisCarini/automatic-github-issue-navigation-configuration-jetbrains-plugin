@@ -3,14 +3,13 @@ package com.chriscarini.jetbrains.github.issue.navigation;
 
 import com.intellij.openapi.vcs.IssueNavigationConfiguration;
 import com.intellij.openapi.vcs.IssueNavigationLink;
-import com.intellij.testFramework.LightPlatformTestCase;
-import org.junit.Test;
+import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class TestGitHubIssueNavigationVcsRepositoryMappingListenerTest extends LightPlatformTestCase {
+public class TestGitHubIssueNavigationVcsRepositoryMappingListenerTest extends BasePlatformTestCase {
 
     public void testExistsInIssueNavConfig() {
         // given
