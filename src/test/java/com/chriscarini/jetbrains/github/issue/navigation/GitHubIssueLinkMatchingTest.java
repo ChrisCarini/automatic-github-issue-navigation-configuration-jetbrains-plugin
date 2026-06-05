@@ -1,23 +1,12 @@
 package com.chriscarini.jetbrains.github.issue.navigation;
 
-import com.intellij.dvcs.repo.VcsRepositoryManager;
+import com.chriscarini.jetbrains.github.utils.GitHubUri;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vcs.IssueNavigationConfiguration;
-import com.intellij.openapi.vcs.ProjectLevelVcsManager;
-import com.intellij.openapi.vcs.VcsDirectoryMapping;
-import com.intellij.openapi.vfs.LocalFileSystem;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
-import java.io.File;
-import java.util.Collections;
 import java.util.List;
 
-import git4idea.GitVcs;
-import git4idea.commands.Git;
-import git4idea.commands.GitCommand;
-import git4idea.commands.GitCommandResult;
-import git4idea.commands.GitLineHandler;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -29,43 +18,14 @@ public class GitHubIssueLinkMatchingTest extends BasePlatformTestCase {
 
         final Project project = getProject();
 
-        // `git init`
-        final String rootDirectory = project.getBasePath();
-        assertNotNull("Project root directory should not be null", rootDirectory);
-        final Git git = Git.getInstance();
-        final GitLineHandler handler = new GitLineHandler(project, new File(rootDirectory), GitCommand.INIT);
-        handler.setSilent(false);
-        final GitCommandResult initResult = git.runCommand(handler);
-        if (!initResult.success()) {
-            fail("This shouldn't happen.");
-        }
-
-        // `git remote add origin ...`
+        // configure issue navigation directly for the test repository
         final String remoteUrl = "https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin.git";
-        final GitLineHandler remoteAddHandler = new GitLineHandler(project, new File(rootDirectory), GitCommand.REMOTE);
-        remoteAddHandler.addParameters("add", "origin", remoteUrl);
-        final GitCommandResult remoteAddResult = git.runCommand(remoteAddHandler);
-
-        if (!remoteAddResult.success()) {
-            fail("Failed to add remote: " + remoteAddResult.getErrorOutputAsJoinedString());
-        }
-
-        // register git repo
-        final VcsDirectoryMapping mapping = new VcsDirectoryMapping(rootDirectory, GitVcs.NAME);
-        ProjectLevelVcsManager.getInstance(project).setDirectoryMappings(Collections.singletonList(mapping));
-
-        // trigger an update so that the repository configured above shows up
-        final VirtualFile file = LocalFileSystem.getInstance().findFileByPath(rootDirectory);
-        VcsRepositoryManager.getInstance(project).getRepositoryForRoot(file);
-
-        // configure issue navigation
-        final GitHubIssueNavigationVcsRepositoryMappingListener l = new GitHubIssueNavigationVcsRepositoryMappingListener(project);
-        l.configureIssueNavigationConfigurations();
+        final String cleanedUrl = GitHubUri.parseUrl(remoteUrl).asHttpsFormatUrl();
+        GitHubIssueNavigationVcsRepositoryMappingListener.addNewIssueNavigationConfiguration(project, cleanedUrl);
     }
 
     @Override
     protected void tearDown() throws Exception {
-        ProjectLevelVcsManager.getInstance(getProject()).setDirectoryMappings(Collections.emptyList());
         IssueNavigationConfiguration.getInstance(getProject()).setLinks(List.of());
 
         super.tearDown();
