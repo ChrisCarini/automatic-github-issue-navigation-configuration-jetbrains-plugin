@@ -11,6 +11,7 @@
          on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
     <depends>Git4Idea</depends>
+    <depends>intellij.vcs.plugin</depends>
 
     <projectListeners>
         <listener
