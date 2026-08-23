@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- [#750](https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/issues/750) - Fixes issue where IDE shows error about this plugin `Requires plugin 'intellij.platform.vcs.dvcs' to be installed`.
+
 ## [4.0.2] - 2026-05-16
 
 ### Changed
@@ -12,7 +16,6 @@
 - Upgrading IntelliJ from 2026.1.4 to 2026.2
 - Upgrading IntelliJ from 2026.1.3 to 2026.1.4
 - Upgrading IntelliJ from 2026.1.2 to 2026.1.3
-
 - Upgrading IntelliJ from 2026.1.1 to 2026.1.2
 
 ## [4.0.1] - 2026-04-24
