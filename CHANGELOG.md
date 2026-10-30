@@ -7,7 +7,6 @@
 ### Added
 
 ### Changed
-- Upgrading IntelliJ from 2026.2.3 to 2026.2.4
 
 ### Deprecated
 
@@ -16,6 +15,12 @@
 ### Fixed
 
 ### Security
+
+## [4.1.6] - 2026-10-30
+
+### Changed
+
+- Upgrading IntelliJ from 2026.2.3 to 2026.2.4
 
 ## [4.1.5] - 2026-09-19
 
@@ -474,7 +479,8 @@
 
 - Initial release.
 
-[Unreleased]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v4.1.5...HEAD
+[Unreleased]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v4.1.6...HEAD
+[4.1.6]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v4.1.5...v4.1.6
 [4.1.5]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v4.1.4...v4.1.5
 [4.1.4]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v4.1.3...v4.1.4
 [4.1.3]: https://github.com/ChrisCarini/automatic-github-issue-navigation-configuration-jetbrains-plugin/compare/v4.1.2...v4.1.3
